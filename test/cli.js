@@ -249,6 +249,26 @@ describe('CLI', function () {
     });
   });
 
+  describe('-r, --dittoResponse', function () {
+    it('should return default if no flag provided', function () {
+      const expected = false;
+      const actual = sut.getArgs([]);
+      assert.strictEqual(actual.dittoResponse, expected);
+    });
+
+    it('should return supplied value when provided', function () {
+      const expected = true;
+      const actual = sut.getArgs(['-r', expected]);
+      assert.strictEqual(actual.dittoResponse, expected);
+    });
+
+    it('should return supplied value when provided with full flag', function () {
+      const expected = true;
+      const actual = sut.getArgs(['--dittoResponse', expected]);
+      assert.strictEqual(actual.dittoResponse, expected);
+    });
+  });
+
   describe('getArgs', function () {
     it('should gather all arguments', function () {
       var actual;
@@ -266,6 +286,7 @@ describe('CLI', function () {
         watch: filename,
         datadir: process.cwd(),
         debugStubs: false,
+        dittoResponse: false,
         help: undefined, // eslint-disable-line no-undefined
         version: (require('../package.json')).version
       };
